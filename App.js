@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,6 +15,8 @@ import {
   Text,
   useColorScheme,
   View,
+  NativeModules,
+  Button
 } from 'react-native';
 
 import {
@@ -26,7 +27,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
+import CalendarModule from './CalendarModule';
+
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -52,7 +55,11 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const onPress = () => {
+  CalendarModule.createCalendarEvent('testName', 'testLocation');
+};
+
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -85,6 +92,11 @@ const App: () => Node = () => {
           </Section>
           <LearnMoreLinks />
         </View>
+        <Button
+          title="Click to invoke your native module!"
+          color="#841584"
+          onPress={onPress}
+        />
       </ScrollView>
     </SafeAreaView>
   );
